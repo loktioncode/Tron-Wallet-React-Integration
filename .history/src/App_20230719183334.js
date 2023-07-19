@@ -1,12 +1,9 @@
- 
 import { React, useState, useEffect } from 'react';
 import './App.css';
 import logo from './logo.svg';
-import DonationForm from './SupportForm';
-
 
 function App() {
-  const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
+  const [myMessage, setMyMessage] = useState(<h3> LOADING.. </h3>);
   const [myDetails, setMyDetails] = useState({
     name: 'none',
     address: 'none',
@@ -41,7 +38,7 @@ function App() {
         }
 
         //we have wallet and we are logged in
-        setMyMessage(<h3 className='text-head'>WALLET CONNECTED</h3>);
+        setMyMessage(<h3>WALLET CONNECTED</h3>);
         setMyDetails({
           name: window.tronWeb.defaultAddress.name,
           address: window.tronWeb.defaultAddress.base58,
@@ -52,7 +49,7 @@ function App() {
         });
       } else {
         //we have wallet but not logged in
-        setMyMessage(<h3 className='text-head'>WALLET DETECTED PLEASE LOGIN</h3>);
+        setMyMessage(<h3>WALLET DETECTED PLEASE LOGIN</h3>);
         setMyDetails({
           name: 'none',
           address: 'none',
@@ -64,7 +61,7 @@ function App() {
       }
     } else {
       //wallet is not detected at all
-      setMyMessage(<h3 className='text-head'>WALLET NOT DETECTED</h3>);
+      setMyMessage(<h3>WALLET NOT DETECTED</h3>);
     }
   };
 
@@ -78,8 +75,6 @@ function App() {
     };
   });
 
-
-
   return (
     <div className="App">
       <div className="Card">
@@ -92,7 +87,7 @@ function App() {
         </div>
         <div className="Stats">
           {myMessage}
-          <h4 className='text-red-900'>Account Name: {myDetails.name} </h4>
+          <h4>Account Name: {myDetails.name} </h4>
           <h4>My Address: {myDetails.address}</h4>
           <h4>
             Balance: {myDetails.balance} TRX (Frozen:{' '}
@@ -102,9 +97,13 @@ function App() {
           <h4>Link Established: {myDetails.link}</h4>
         </div>
         <div>
-         <DonationForm />
+          <button> SHARE </button>
+          <button> SHARE </button>
+
         </div>
-  
+        <footer>
+          <p>V 0.03 / 2021 &copy; Loktioncode Clubhouse</p>
+        </footer>
       </div>
     </div>
   );

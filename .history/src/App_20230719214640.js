@@ -1,9 +1,8 @@
- 
+
 import { React, useState, useEffect } from 'react';
 import './App.css';
 import logo from './logo.svg';
 import DonationForm from './SupportForm';
-
 
 function App() {
   const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
@@ -78,16 +77,79 @@ function App() {
     };
   });
 
+  async function sendTRC20Token(network, fromAddress, toAddress, amount, privateKey, AppKey, CONTRACT) {
+    let url = null;
+    if (network === "shasta") {
+      url = "https://api.shasta.trongrid.io";
+    } else if (network === "nile") {
+      url = "https://nile.trongrid.io";
+    } else {
+      url = "https://api.trongrid.io";
+    }
+    const tronWeb = new TronWeb({
+      fullHost: url,
+      headers: { "TRON-PRO-API-KEY": AppKey },
+      privateKey: privateKey,
+    });
+    const options = {
+      feeLimit: 10000000,
+      callValue: 0
+    };
+    const tx = await tronWeb.transactionBuilder.triggerSmartContract(
+      CONTRACT, 'transfer(address,uint256)', options,
+      [{
+        type: 'address',
+        value: toAddress
+      }, {
+        type: 'uint256',
+        value: amount * 1000000
+      }],
+      tronWeb.address.toHex(fromAddress)
+    );
+    const signedTx = await tronWeb.trx.sign(tx.transaction);
+    const broadcastTx = await tronWeb.trx.sendRawTransaction(signedTx);
+    return broadcastTx;
+  }
 
+  async function getPrivateKey(address) {
+    try {
+      const privateKey = await tronWeb.trx.getAccount(address).then((res) => {
+        if (res && res.privateKey) {
+          return res.privateKey;
+        } else {
+          throw new Error('Private key not found');
+        }
+      });
+
+      console.log('Private key:', privateKey);
+      return privateKey;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  const address = myDetails.address; // Replace with the desired Tron address
+  getPrivateKey(address);
+
+  // const sendTxn = async (data) => {
+  //   const fromAddress = myDetails.address;
+  //   const toAddress = "TN.....";
+  //   const amount = data?.amount;
+  //   const privateKey = "key";
+  //   const AppKey = "Tron Pro API Key - Optional";
+  //   const usdt_contract = "TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs";
+  //   const network = "shasta"; //, nile or main
+  //   await sendTRC20Token(network, fromAddress, toAddress, amount, privateKey, AppKey, usdt_contract);
+  // }
 
   return (
     <div className="App">
       <div className="Card">
         <div className="Logo">
-        <img
-          src={logo}
-          alt="logo"
-        />
+          <img
+            src={logo}
+            alt="logo"
+          />
 
         </div>
         <div className="Stats">
@@ -102,9 +164,9 @@ function App() {
           <h4>Link Established: {myDetails.link}</h4>
         </div>
         <div>
-         <DonationForm />
+          <DonationForm sendTronX={sendTxn} />
         </div>
-  
+
       </div>
     </div>
   );

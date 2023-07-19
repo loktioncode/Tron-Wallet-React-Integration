@@ -4,7 +4,6 @@ import './App.css';
 import logo from './logo.svg';
 import DonationForm from './SupportForm';
 
-
 function App() {
   const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
   const [myDetails, setMyDetails] = useState({
@@ -77,8 +76,6 @@ function App() {
       clearInterval(interval);
     };
   });
-
-
 
   return (
     <div className="App">

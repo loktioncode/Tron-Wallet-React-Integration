@@ -4,9 +4,8 @@ import './App.css';
 import logo from './logo.svg';
 import DonationForm from './SupportForm';
 
-
 function App() {
-  const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
+  const [myMessage, setMyMessage] = useState(<h3> LOADING.. </h3>);
   const [myDetails, setMyDetails] = useState({
     name: 'none',
     address: 'none',
@@ -41,7 +40,7 @@ function App() {
         }
 
         //we have wallet and we are logged in
-        setMyMessage(<h3 className='text-head'>WALLET CONNECTED</h3>);
+        setMyMessage(<h3>WALLET CONNECTED</h3>);
         setMyDetails({
           name: window.tronWeb.defaultAddress.name,
           address: window.tronWeb.defaultAddress.base58,
@@ -78,8 +77,6 @@ function App() {
     };
   });
 
-
-
   return (
     <div className="App">
       <div className="Card">
@@ -104,7 +101,9 @@ function App() {
         <div>
          <DonationForm />
         </div>
-  
+        <footer>
+          <p>V 0.03 / 2021 &copy; Loktioncode Clubhouse</p>
+        </footer>
       </div>
     </div>
   );

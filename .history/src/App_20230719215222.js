@@ -3,7 +3,7 @@ import { React, useState, useEffect } from 'react';
 import './App.css';
 import logo from './logo.svg';
 import DonationForm from './SupportForm';
-
+import TronWeb from 'tronweb';
 
 function App() {
   const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
@@ -78,7 +78,21 @@ function App() {
     };
   });
 
+  const handleSendTRX = async () => {
+    try {
+      const tronWeb = new TronWeb({
+        fullHost: 'https://api.trongrid.io', // Use the appropriate Tron network API URL
+      });
 
+      const transaction = await tronWeb.trx.sendTransaction(recipientAddress, amount * 1e6);
+
+      console.log(transaction);
+      // Perform any additional actions, such as showing a success message or updating the UI
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error, show an error message, etc.
+    }
+  };
 
   return (
     <div className="App">

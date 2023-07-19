@@ -4,9 +4,8 @@ import './App.css';
 import logo from './logo.svg';
 import DonationForm from './SupportForm';
 
-
 function App() {
-  const [myMessage, setMyMessage] = useState(<h3 className='text-head'> LOADING.. </h3>);
+  const [myMessage, setMyMessage] = useState(<h3> LOADING.. </h3>);
   const [myDetails, setMyDetails] = useState({
     name: 'none',
     address: 'none',
@@ -41,7 +40,7 @@ function App() {
         }
 
         //we have wallet and we are logged in
-        setMyMessage(<h3 className='text-head'>WALLET CONNECTED</h3>);
+        setMyMessage(<h3>WALLET CONNECTED</h3>);
         setMyDetails({
           name: window.tronWeb.defaultAddress.name,
           address: window.tronWeb.defaultAddress.base58,
@@ -52,7 +51,7 @@ function App() {
         });
       } else {
         //we have wallet but not logged in
-        setMyMessage(<h3 className='text-head'>WALLET DETECTED PLEASE LOGIN</h3>);
+        setMyMessage(<h3>WALLET DETECTED PLEASE LOGIN</h3>);
         setMyDetails({
           name: 'none',
           address: 'none',
@@ -64,7 +63,7 @@ function App() {
       }
     } else {
       //wallet is not detected at all
-      setMyMessage(<h3 className='text-head'>WALLET NOT DETECTED</h3>);
+      setMyMessage(<h3>WALLET NOT DETECTED</h3>);
     }
   };
 
@@ -77,8 +76,6 @@ function App() {
       clearInterval(interval);
     };
   });
-
-
 
   return (
     <div className="App">
@@ -102,9 +99,17 @@ function App() {
           <h4>Link Established: {myDetails.link}</h4>
         </div>
         <div>
-         <DonationForm />
+        <fieldset className="w-full space-y-1 dark:text-gray-100">
+	<label for="price" className="block text-sm font-medium">Total price</label>
+	<div className="flex">
+		<input type="text" name="price" id="price" placeholder="99 999,99" className="flex flex-1 text-right border sm:text-sm rounded-l-md focus:ri dark:border-gray-700 dark:text-gray-100 dark:bg-gray-800 focus:ri" />
+		<span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md dark:bg-gray-700">€</span>
+	</div>
+</fieldset>
         </div>
-  
+        <footer>
+          <p>V 0.03 / 2021 &copy; Loktioncode Clubhouse</p>
+        </footer>
       </div>
     </div>
   );
