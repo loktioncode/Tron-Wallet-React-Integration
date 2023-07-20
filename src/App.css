@@ -31,6 +31,9 @@
   /* padding-right: 5em; */
 }
 
+.Stats {
+  margin-top: 5%;
+}
 
 .Stats h3 {
   margin: 1.7em;
@@ -39,17 +42,20 @@
   font-weight: 400;
   font-size: 1.6em;
 }
-
+h3.text-head{
+  color: rgb(196, 196, 196);
+  font-weight: 500;
+  font-size: 1.3em;
+}
 h1 {
   margin: 1.4em;
-  color: rgb(117, 136, 196);
-
+  color: rgb(196, 196, 196);
   font-weight: 400;
   font-size: 1.5em;
 }
 
 h4 {
-  color: rgb(161, 160, 160);
+  color: rgb(196, 196, 196);
   font-weight: 400;
   font-size: 1.2em;
 }
