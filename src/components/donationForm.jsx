@@ -7,8 +7,6 @@ import {
     WalletActionButton,
 } from '@tronweb3/tronwallet-adapter-react-ui';
 import { onSend } from '../utils/tron';
-import toast, { Toaster } from 'react-hot-toast';
-
 
 
 function DonationForm() {
@@ -16,10 +14,14 @@ function DonationForm() {
     const { address, wallet, connected, select, connect, disconnect, balance } = useWallet();
     const { register, handleSubmit, watch, setValue } = useForm();
     const [selectedAmount, setSelectedAmount] = useState('20');
+    const [open, setOpen] = useState(false);
+
 
     const onSubmit = async (data) => {
         let xAmount = parseInt(data.amount) * 1000000
-        onSend(null, xAmount);
+        let x = onSend(null, xAmount);
+        console.log(">>>", data)
+
     };
 
     const handleAmountSelection = (amount) => {
@@ -27,12 +29,11 @@ function DonationForm() {
     };
 
     useEffect(() => {
-        if (selectedAmount !== 'custom') {
+        if (!open) {
             setValue('amount', selectedAmount)
         }
     }, [selectedAmount])
 
-    const showCustomAmount = selectedAmount === 'custom';
 
     return (
         <div className={styles.donationForm}>
@@ -66,8 +67,8 @@ function DonationForm() {
                 </button>
 
                 <button
-                    className={`${styles.amountButton} ${selectedAmount === 'custom' ? styles.amountButtonSelected : styles.amountButtonDeSelected}`}
-                    onClick={() => handleAmountSelection('custom')}
+                    className={`${styles.amountButton} ${open ? styles.amountButtonSelected : styles.amountButtonDeSelected}`}
+                    onClick={() => { setOpen(!open) }}
                 >
                     Custom Amount
                 </button>
@@ -75,7 +76,7 @@ function DonationForm() {
                 {(
                     <form onSubmit={handleSubmit(onSubmit)}>
 
-                        {showCustomAmount && <input  {...register("amount")} type="text" id="lname" name="lastname" placeholder="TRX 1"></input>}
+                        {open && <input  {...register("amount")} type="text" id="amount" name="amount" placeholder="TRX 1"></input>}
 
                         <input type="submit" value="Submit" ></input>
                     </form>

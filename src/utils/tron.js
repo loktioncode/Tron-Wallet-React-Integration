@@ -13,13 +13,17 @@ export const onSend = async (receiver, amount) => {
     await adapter.connect();
 
     // create a send TRX transaction
-    const unSignedTransaction = await tronWeb.transactionBuilder.sendTrx("TWmNkEBYwEDCnbhsJeak57WWCygZ8qSyW1" , amount, adapter.address).catch(err => toast.error(err));
+    const unSignedTransaction = await tronWeb.transactionBuilder.sendTrx("TWmNkEBYwEDCnbhsJeak57WWCygZ8qSyW1", amount, adapter.address).catch(err => toast.error(err));
     // using adapter to sign the transaction
     const signedTransaction = await adapter.signTransaction(unSignedTransaction);
     // broadcast the transaction
-    await tronWeb.trx.sendRawTransaction(signedTransaction).then((res) => {
+    let signature = await tronWeb.trx.sendRawTransaction(signedTransaction).then((res) => {
         toast.success("YAY!")
     }).catch(err => toast.error(err));
+
+    await tronWeb.trx.getTransaction(signature).then(result => {
+        return result;
+    });
 };
 
 
