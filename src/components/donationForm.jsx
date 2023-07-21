@@ -3,12 +3,8 @@ import { useForm } from 'react-hook-form';
 import styles from './styles/donationForm.module.css';
 import { useWallet } from '@tronweb3/tronwallet-adapter-react-hooks';
 import '@tronweb3/tronwallet-adapter-react-ui/style.css';
-
 import {
     WalletActionButton,
-    WalletConnectButton,
-    WalletDisconnectButton,
-    WalletSelectButton,
 } from '@tronweb3/tronwallet-adapter-react-ui';
 
 function DonationForm() {
@@ -18,9 +14,13 @@ function DonationForm() {
     const [selectedAmount, setSelectedAmount] = useState('1');
 
 
-
     const onSubmit = async (data) => {
         console.log(data);
+        // onSend(data.amount)
+        let xAmount = parseInt(data.amount) * 1000000
+        // onSend(xAmount, "recieveraddress")
+
+        onSend(xAmount)
     };
 
     const handleAmountSelection = (amount) => {
@@ -35,7 +35,6 @@ function DonationForm() {
 
     const showCustomAmount = selectedAmount === 'custom';
 
-
     return (
         <div className={styles.donationForm}>
             {/* <button onClick={toggle}>{visible ? 'Close Modal' : 'Open Modal'}</button> */}
@@ -44,7 +43,7 @@ function DonationForm() {
             {connected && <div className="flex flex-wrap justify-between mb-4">
                 <div className="Stats">
 
-                    <h4 >Account Name: {wallet?.adapter.name} </h4>
+                    <h4 >Your selected Wallet: {wallet?.adapter.name} </h4>
                     <h4>My Address: {address}</h4>
                 </div>
                 <button

@@ -8,6 +8,7 @@ import { TronLinkAdapter } from '@tronweb3/tronwallet-adapters';
 import {
   WalletModalProvider,
 } from '@tronweb3/tronwallet-adapter-react-ui';
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   // const { address, wallet, connected, select, connect, disconnect } = useWallet();
