@@ -6,21 +6,20 @@ import '@tronweb3/tronwallet-adapter-react-ui/style.css';
 import {
     WalletActionButton,
 } from '@tronweb3/tronwallet-adapter-react-ui';
+import { onSend } from '../utils/tron';
+import toast, { Toaster } from 'react-hot-toast';
+
+
 
 function DonationForm() {
 
     const { address, wallet, connected, select, connect, disconnect, balance } = useWallet();
     const { register, handleSubmit, watch, setValue } = useForm();
-    const [selectedAmount, setSelectedAmount] = useState('1');
-
+    const [selectedAmount, setSelectedAmount] = useState('20');
 
     const onSubmit = async (data) => {
-        console.log(data);
-        // onSend(data.amount)
         let xAmount = parseInt(data.amount) * 1000000
-        // onSend(xAmount, "recieveraddress")
-
-        onSend(xAmount)
+        onSend(null, xAmount);
     };
 
     const handleAmountSelection = (amount) => {
@@ -52,6 +51,7 @@ function DonationForm() {
                 >
                     TRX 20
                 </button>
+
                 <button
                     className={`${styles.amountButton} ${selectedAmount === '50' ? styles.amountButtonSelected : styles.amountButtonDeSelected}`}
                     onClick={() => handleAmountSelection('50')}
