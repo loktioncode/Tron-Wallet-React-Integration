@@ -46,7 +46,7 @@ form {
     box-sizing: border-box;
   }
   
-  input[type=submit], .tronBtn {
+  input[type=submit] {
     width: 90%;
     background-color: #e62143;
     color: white;
@@ -55,16 +55,33 @@ form {
     border: none;
     border-radius: 50px;
     cursor: pointer;
+    font-size: larger;
   }
   
-  input[type=submit]:hover, .tronBtn:hover {
+  input[type=submit]:hover {
     background-color: white;
     border-color: #e62143;
     border-style:solid;
     color: #e62143
   }
 
-  
+  .tronConnectBtn{
+    width: 90% ;
+    background-color: #e62143 !important;
+    color: white !important;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 50px !important;
+    cursor: pointer;
+  }
+
+  .tronConnectBtn:hover {
+    background-color: white !important;
+    border-color: #e62143 !important;
+    border-style:solid;
+    color: #e62143 !important
+  }
 
 
   

@@ -24,17 +24,12 @@ function App() {
 
   function onError(e) {
     if (e instanceof WalletNotFoundError) {
-      // some alert for wallet not found
-      // setMyMessage(<h3 className='text-head'>WALLET NOT FOUND</h3>);
-
+      toast.error(e.message);
     } else if (e instanceof WalletDisconnectedError) {
-      // some alert for wallet not connected
-      // setMyMessage(<h3 className='text-head'>WALLET NOT CONNECTED</h3>);
-
-    } else {
-      console.error(e.message);
-    }
+      toast.error(e.message);
+    } else toast.error(e.message);
   }
+
 
   const adapters = useMemo(function () {
     const tronLink = new TronLinkAdapter();
@@ -64,7 +59,7 @@ function App() {
           />
 
         </div>
-        {<>
+        {<> 
           <div>
             <WalletProvider onError={onError} autoConnect={true} disableAutoConnectOnLoad={true} adapters={adapters}>
               <WalletModalProvider>
