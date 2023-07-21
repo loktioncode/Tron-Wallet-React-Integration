@@ -11,17 +11,7 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
-  // const { address, wallet, connected, select, connect, disconnect } = useWallet();
 
-  const [myMessage, setMyMessage] = useState();
-  const [myDetails, setMyDetails] = useState({
-    name: 'none',
-    address: 'none',
-    balance: 0,
-    frozenBalance: 0,
-    network: 'none',
-    link: 'false',
-  });
 
   function onError(e) {
     if (e instanceof WalletNotFoundError) {
@@ -38,18 +28,6 @@ function App() {
   }, []);
 
 
-  useEffect(() => {
-    const interval = setInterval(async () => {
-
-      //wallet checking interval 2sec
-    }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-
-
   return (
     <div className="App">
       <div className="Card">
@@ -60,15 +38,15 @@ function App() {
           />
 
         </div>
-        {<> 
-          <div>
-            <WalletProvider onError={onError} autoConnect={true} disableAutoConnectOnLoad={true} adapters={adapters}>
-              <WalletModalProvider>
-                <DonationForm />
-              </WalletModalProvider>
-            </WalletProvider>
-          </div>
-        </>}
+
+        <div>
+          <WalletProvider onError={onError} autoConnect={true} disableAutoConnectOnLoad={true} adapters={adapters}>
+            <WalletModalProvider>
+              <DonationForm />
+            </WalletModalProvider>
+          </WalletProvider>
+        </div>
+
 
       </div>
     </div>

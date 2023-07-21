@@ -19,9 +19,7 @@ function DonationForm() {
 
     const onSubmit = async (data) => {
         let xAmount = parseInt(data.amount) * 1000000
-        let x = onSend(null, xAmount);
-        console.log(">>>", data)
-
+        await onSend(null, xAmount);
     };
 
     const handleAmountSelection = (amount) => {
@@ -37,7 +35,7 @@ function DonationForm() {
 
     return (
         <div className={styles.donationForm}>
-            {/* <button onClick={toggle}>{visible ? 'Close Modal' : 'Open Modal'}</button> */}
+
             <h2 className='text-head'>{connected ? 'ENTER TRX AMOUNT TO SUPPORT CREATOR' : 'CONNECT WALLET TO SUPPORT CREATOR'} </h2>
 
             {connected && <div className="flex flex-wrap justify-between mb-4">
