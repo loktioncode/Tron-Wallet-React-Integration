@@ -39,13 +39,14 @@ function DonationForm() {
     return (
         <div className={styles.donationForm}>
             {/* <button onClick={toggle}>{visible ? 'Close Modal' : 'Open Modal'}</button> */}
-            <h2 className='text-head'>ENTER TRX AMOUNT TO SUPPORT CREATOR</h2>
-            <div className="Stats">
-                <h4>Connection Status: {connected ? 'Connected' : 'Disconnected'}</h4>
-                <h4 >Account Name: {wallet?.adapter.name} </h4>
-                <h4>My Address: {address}</h4>
-            </div>
+            <h2 className='text-head'>{connected ? 'ENTER TRX AMOUNT TO SUPPORT CREATOR' : 'CONNECT WALLET TO SUPPORT CREATOR'} </h2>
+
             {connected && <div className="flex flex-wrap justify-between mb-4">
+                <div className="Stats">
+
+                    <h4 >Account Name: {wallet?.adapter.name} </h4>
+                    <h4>My Address: {address}</h4>
+                </div>
                 <button
                     className={`${styles.amountButton} ${selectedAmount === '20' ? styles.amountButtonSelected : styles.amountButtonDeSelected}`}
                     onClick={() => handleAmountSelection('20')}
