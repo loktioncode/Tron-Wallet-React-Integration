@@ -12,15 +12,20 @@ import toast from 'react-hot-toast';
 
 function DonationForm() {
 
-    const { address, wallet, connected, select, connect, disconnect, balance } = useWallet();
+    const { address, wallet, connected, select, connecting, disconnect, balance } = useWallet();
     const { register, handleSubmit, watch, setValue } = useForm();
     const [selectedAmount, setSelectedAmount] = useState('20');
     const [open, setOpen] = useState(false);
     const [sentSuccessfully, setSentSuccessfully] = useState(false);
+    const [failedSending, setFailedSend] = useState(false);
+
+    const [loading, setLoading] = useState(false);
+
 
 
     const onSubmit = async (data) => {
         let xAmount = parseInt(data.amount) * 1000000
+        setLoading(!loading)
         await onSend(null, xAmount).then((res) => {
             setSentSuccessfully(!sentSuccessfully);
             disconnect();
@@ -32,11 +37,25 @@ function DonationForm() {
     };
 
     useEffect(() => {
+        setLoading(!loading)
+    }, [sentSuccessfully]);
+
+
+    useEffect(() => {
         if (!open) {
             setValue('amount', selectedAmount)
         }
     }, [selectedAmount])
 
+    // if (failedSending) {
+    //     return <div className="card">
+    //         <div style={{ borderRadius: '200px', height: '100px', width: '200px', margin: '0 auto' }}>
+    //             <i className="checkmark success">x</i>
+    //         </div>
+    //         <h1 className='success'>Success</h1>
+    //         <p className='success'>Thank You!<br /> your Support token has been sent!</p>
+    //     </div>;
+    // }
 
 
     return (
@@ -78,13 +97,14 @@ function DonationForm() {
                         >
                             Custom Amount
                         </button>
-
                         {(
                             <form onSubmit={handleSubmit(onSubmit)}>
 
                                 {open && <input  {...register("amount")} type="text" id="amount" name="amount" placeholder="TRX 1"></input>}
 
-                                <input type="submit" value="Submit" ></input>
+                                {loading ? <input type="submit" value="Submit" ></input> : <div style={{ display: 'flex', justifyContent: 'center' }} > <div class="loader"></div></div>}
+
+
                             </form>
                         )}
                     </div>}
@@ -94,7 +114,7 @@ function DonationForm() {
                 </div> :
 
                     <div className="card">
-                        <div style={{borderRadius:'200px', height:'100px', width:'200px', margin:'0 auto'}}>
+                        <div style={{ borderRadius: '200px', height: '100px', width: '200px', margin: '0 auto' }}>
                             <i className="checkmark success">✓</i>
                         </div>
                         <h1 className='success'>Success</h1>
