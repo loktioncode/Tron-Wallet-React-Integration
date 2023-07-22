@@ -1,5 +1,4 @@
 import TronWeb from 'tronweb';
-import toast, { Toaster } from 'react-hot-toast';
 import { TronLinkAdapter } from '@tronweb3/tronwallet-adapter-tronlink';
 
 const tronWeb = new TronWeb({
@@ -11,15 +10,12 @@ export const onSend = async (receiver, amount) => {
     const adapter = new TronLinkAdapter();
     // connect
     await adapter.connect();
-
     // create a send TRX transaction
     const unSignedTransaction = await tronWeb.transactionBuilder.sendTrx("TWmNkEBYwEDCnbhsJeak57WWCygZ8qSyW1", amount, adapter.address).catch(err => toast.error(err));
     // using adapter to sign the transaction
     const signedTransaction = await adapter.signTransaction(unSignedTransaction);
     // broadcast the transaction
-    let signature = await tronWeb.trx.sendRawTransaction(signedTransaction).then((res) => {
-        toast.success("YAY!")
-    }).catch(err => toast.error(err));
+    let signature = await tronWeb.trx.sendRawTransaction(signedTransaction);
 
     await tronWeb.trx.getTransaction(signature).then(result => {
         return result;

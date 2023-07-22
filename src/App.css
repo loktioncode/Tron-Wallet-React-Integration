@@ -22,11 +22,12 @@
   /* border: solid 0.8em rgba(255, 255, 255, 0.048); */
   border: solid 0.9em rgba(143, 170, 243, 0.068);
 }
+
 .Logo {
 
   height: 6em;
   width: auto;
-  padding: 2em 5em 0em 5em ;
+  padding: 2em 5em 0em 5em;
 
   /* padding-right: 5em; */
 }
@@ -42,11 +43,13 @@
   font-weight: 400;
   font-size: 1.6em;
 }
-h3.text-head{
+
+h3.text-head {
   color: rgb(196, 196, 196);
   font-weight: 500;
   font-size: 1.3em;
 }
+
 h1 {
   margin: 1.4em;
   color: rgb(196, 196, 196);
@@ -73,10 +76,38 @@ footer {
   padding-top: 2em;
 }
 
-.text-head{
+.text-head {
   color: #fff
 }
 
-h3.text-head{
+h3.text-head {
   color: #fff
+}
+
+h1.success {
+  color: #e62143;
+  font-weight: 900;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+p.success {
+  color: #ffffff;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+i.success {
+  color: #9ABC66;
+  font-size: 80px;
+  line-height: 150px;
+  margin-left: -15px;
+}
+
+.card {
+  padding-bottom: 0px;
+  padding-top: 40px;
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 auto;
 }
